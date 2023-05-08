@@ -9,7 +9,7 @@ project(nvblox VERSION 0.0.4 LANGUAGES CXX CUDA)
 # Build options
 option(BUILD_EXPERIMENTS "Build performance experimentation binaries" OFF)
 option(BUILD_TESTING "Build tests" ON)
-
+option(INSTALL_EIGEN "Install Eigen" OFF)
 # Whether to build redistributable artifacts using static libraries. In this
 # case, the pre-build static libraries for stdgpu, glog, and gflags MUST be
 # specified, and built with -fPIC. (See README instructions).
@@ -294,11 +294,14 @@ install(
     DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/executables/include/
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
-install(
-    DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/eigen/include/eigen3
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-    PATTERN "*/unsupported**" EXCLUDE
-)
+
+if(INSTALL_EIGEN)
+    install(
+        DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/eigen/include/eigen3
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+        PATTERN "*/unsupported**" EXCLUDE
+    )
+endif()
 
 if(BUILD_REDISTRIBUTABLE)
     # Only re-distribute these headers if we're building the redistributable artifacts.
