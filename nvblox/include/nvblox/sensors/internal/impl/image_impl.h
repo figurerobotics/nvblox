@@ -41,7 +41,6 @@ Image<ElementType>::Image(int rows, int cols, MemoryType memory_type)
 template <typename ElementType>
 Image<ElementType>::Image(const Image<ElementType>& other)
     : Image(other, other.memory_type_) {
-  LOG(WARNING) << "Deep copy of Image.";
 };
 
 template <typename ElementType>
@@ -51,7 +50,6 @@ Image<ElementType>::Image(const Image<ElementType>& other,
       memory_type_(memory_type),
       owned_data_(make_unified<ElementType[]>(
           static_cast<size_t>(other.rows_ * other.cols_), memory_type)) {
-  LOG(WARNING) << "Deep copy of Image.";
   image::copy(this->rows_, this->cols_, other.owned_data_.get(),
               owned_data_.get());
   this->data_ = owned_data_.get();
@@ -76,7 +74,6 @@ Image<ElementType>& Image<ElementType>::operator=(Image<ElementType>&& other) {
 template <typename ElementType>
 Image<ElementType>& Image<ElementType>::operator=(
     const Image<ElementType>& other) {
-  LOG(WARNING) << "Deep copy of Image.";
   this->rows_ = other.rows_;
   this->cols_ = other.cols_;
   memory_type_ = other.memory_type_;
