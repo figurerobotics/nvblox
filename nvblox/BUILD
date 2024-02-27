@@ -7,6 +7,6 @@ cc_library(
     deps = [
         "@rules_cuda//cuda:runtime",
         "@com_github_gflags_gflags//:gflags",
-        "@com_github_google_glog//:glog","
+        "@com_github_google_glog//:glog",
     ]
 )
